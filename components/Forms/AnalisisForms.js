@@ -90,7 +90,7 @@ export default function Form() {
       method: "POST",
       body: form,
     }); */
-    const res = await fetch("http://35.239.225.221:5000/analisis", {
+    const res = await fetch("https://www.upiita.ml/analisis", {
       mode: "cors",
       method: "POST",
       body: form,
