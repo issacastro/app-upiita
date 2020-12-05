@@ -79,7 +79,12 @@ export default function Form() {
     blobs.forEach((blob, i) => {
       form.append("file", blob, `${data.name + (i + 1).toString()}.wav`);
     });
-    const res = await fetch("http://127.0.0.1:5000/upload", {
+/*     const res = await fetch("http://127.0.0.1:5000/upload", {
+      mode: "cors",
+      method: "POST",
+      body: form,
+    }); */
+    const res = await fetch("http://34.72.31.215:5000/upload", {
       mode: "cors",
       method: "POST",
       body: form,

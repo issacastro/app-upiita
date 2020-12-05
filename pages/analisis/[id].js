@@ -94,7 +94,8 @@ export default function Resultado({ data }) {
 
 export async function getServerSideProps({ params }) {
   // Fetch data from external API
-  const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`);
+ /*  const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`); */
+  const res = await fetch(`http://34.72.31.215:5000/analisis/${params.id}`);
   const data = await res.json();
   // Pass data to the page via props
   return { props: { data } };
