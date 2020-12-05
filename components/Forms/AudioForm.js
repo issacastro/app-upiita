@@ -84,7 +84,7 @@ export default function Form() {
       method: "POST",
       body: form,
     }); */
-    const res = await fetch("http://34.72.31.215:5000/upload", {
+    const res = await fetch("http://35.239.225.221:5000/upload", {
       mode: "cors",
       method: "POST",
       body: form,
