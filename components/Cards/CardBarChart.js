@@ -1,24 +1,18 @@
 import React from "react";
 import Chart from "chart.js";
 
-export default function CardBarChart() {
+export default function CardBarChart(props) {
   React.useEffect(() => {
     let config = {
       type: "bar",
       data: {
-        labels: [
-          "CNN",
-          "LSTM",
-          "BILSTM",
-          "CNNLSTM",
-          "CNNBILSTM",
-        ],
+        labels: props.labels,
         datasets: [
           {
             label: "Mexico",
             backgroundColor: "#00C853",
             borderColor: "#00C853",
-            data: [60, 80, 56, 26, 99],
+            data: props.DataM,
             fill: false,
             barThickness: 10,
           },
@@ -27,25 +21,25 @@ export default function CardBarChart() {
             fill: false,
             backgroundColor: "#FEF200",
             borderColor: "#FEF200",
-            data: [80, 40, 44, 74, 76],
+            data: props.DataC,
             barThickness: 10,
           },
-          {
+/*           {
             label: "Argentina",
             fill: false,
             backgroundColor: "#00A8F3",
             borderColor: "#00A8F3",
             data: [70, 60, 44, 74, 46],
             barThickness: 10,
-          },
+          }, */
         ],
       },
       options: {
         maintainAspectRatio: false,
         responsive: true,
         title: {
-          display: false,
-          text: "Orders Chart",
+          display: true,
+          text: props.title,
         },
         tooltips: {
           mode: "index",
@@ -101,7 +95,7 @@ export default function CardBarChart() {
         },
       },
     };
-    let ctx = document.getElementById("bar-chart").getContext("2d");
+    let ctx = document.getElementById(`bar-chart-${props.title}`).getContext("2d");
     window.myBar = new Chart(ctx, config);
   }, []);
   return (
@@ -119,7 +113,7 @@ export default function CardBarChart() {
         <div className="p-4 flex-auto">
           {/* Chart */}
           <div className="relative h-350-px">
-            <canvas id="bar-chart"></canvas>
+            <canvas id={`bar-chart-${props.title}`}></canvas>
           </div>
         </div>
       </div>

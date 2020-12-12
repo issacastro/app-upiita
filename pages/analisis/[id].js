@@ -4,25 +4,61 @@ import CardBarChart from "components/Cards/CardBarChart";
 import CardBarsSNR from "components/Cards/CardBarSNR";
 
 export default function Resultado({ data }) {
-  const analisis = data.Data;
-  analisis.forEach((element) => {
-    console.log(element.countryN);
+  
+  var labels = [];
+  var predictions = []; //Con cancelacion de ruido
+  var predictionsN = []; //Con Ruido
+  var Country = "";
+  var Porcent = 0;
+  var analisis = data.Data;
+
+  analisis.forEach(result => {
+    labels.push(result.ANN)
+    predictions.push({"ANN":result.ANN,"Feature":result.Feature,"Country":result.countryN,"Porcent":result.N})
+    predictionsN.push({"ANN":result.ANN,"Feature":result.Feature,"Country":result.countryWNR,"Porcent":result.WNR})
+    
   });
+  //Ordenamos los datos por tipo de red neuronal
+  labels.sort((a,b)=> a.length-b.length)
+  predictions.sort((a,b)=>a.ANN.length-b.ANN.length)
+  predictionsN.sort((a,b)=>a.ANN.length-b.ANN.length)
+  
+// Generamos los vectores para presentar la informacion 
+  var Vectors = DataSet(predictions);
+  var DataM = Vectors[0]
+  var DataC = Vectors[1]
+
+  var Vectors = DataSet(predictionsN);
+  var DataMN = Vectors[0]
+  var DataCN = Vectors[1]
+  var M = Math.max(...DataM);
+  var C = Math.max(...DataC)
+  console.log(M);
+  console.log(C);
+  if(M>C){
+    Country = "Mexico";
+    Porcent = M;
+  }else{
+    Country = "Colombia";
+    Porcent = C;
+  }
+  
   return (
     <Layout>
-      <div className="mx-auto px-3">
-        <div className="w-full px-4 flex-3 text-center">
+      <div>
+        <div className="w-full  flex-3 text-center">
           <div className="flex flex-wrap mb-5">
             <div className="w-full px-4 flex-1"></div>
 
             <div className="w-full px-4 flex-1">
               <h2 className="text-gray-800 text-xl font-bold">Resultados</h2>
               <img
-                className=" mx-auto sm:mx-0 sm:flex-shrink-0 h-20 sm:h-24 "
-                src={require(`assets/img/banderas/Mexico.svg`)}
-                alt="Banderas"
+                className="mx-auto"
+                src={require(`assets/img/banderas/${Country}.svg`)}
+                width="150"
+                height="200"
               />
-              <h2 className="text-red-800 text-xl font-bold">88%</h2>
+              <h2 className="text-red-800 text-xl font-bold">{Porcent.toFixed(4)} %</h2>
             </div>
 
             <div className="w-full px-4 flex-1"></div>
@@ -47,11 +83,13 @@ export default function Resultado({ data }) {
                                 width="500"
                                 height="600"
                               />
-                              <audio
-                                className="mx-auto"
-                                src={data.Audio}
-                                controls
-                              ></audio>
+                              <div className="w-full px-3">
+                                <audio
+                                  className="mx-auto"
+                                  src={data.Audio}
+                                  controls
+                                />
+                              </div>
                             </div>
                           </div>
                           <div className="w-full px-4 flex-1">
@@ -62,11 +100,13 @@ export default function Resultado({ data }) {
                                 width="500"
                                 height="600"
                               />
-                              <audio
-                                className="mx-auto"
-                                src={data.NoiseReduction}
-                                controls
-                              ></audio>
+                              <div className="w-full px-3">
+                                <audio
+                                  className="mx-auto"
+                                  src={data.NoiseReduction}
+                                  controls
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -83,7 +123,8 @@ export default function Resultado({ data }) {
               </>
             </div>
             <div className="w-full px-4 flex-1">
-              <CardBarChart />
+              <CardBarChart title="Sin reduccion de rudio" labels = {labels} DataM = {DataM} DataC = {DataC} />
+              <CardBarChart title="Con reduccion de rudio" labels = {labels} DataM = {DataMN} DataC = {DataCN} />
             </div>
           </div>
         </div>
@@ -94,9 +135,27 @@ export default function Resultado({ data }) {
 
 export async function getServerSideProps({ params }) {
   // Fetch data from external API
- /*  const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`); */
-  const res = await fetch(`https://www.upiita.ml/analisis/${params.id}`);
+  const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`);
+  /*   const res = await fetch(`https://www.upiita.ml/analisis/${params.id}`); */
   const data = await res.json();
   // Pass data to the page via props
   return { props: { data } };
+}
+
+function DataSet(predict) {
+  const accuary = [0.75171,0.51773,0.51986,0.93971,0.93972]
+  var DataM=[];
+  var DataC=[];
+  for (let index = 0; index < predict.length; index++) {
+
+    if(predict[index].Country == "Mexico"){
+      DataM.push(predict[index].Porcent*accuary[index])
+      DataC.push(100-predict[index].Porcent*accuary[index])}
+
+    if(predict[index].Country == "Colombia"){
+      DataC.push(predict[index].Porcent*accuary[index])
+      DataM.push(100-predict[index].Porcent*accuary[index])}
+  }
+return [DataM,DataC]
+  
 }

@@ -85,16 +85,16 @@ export default function Form() {
     if (data.type == "Grabar")
       form.append("file", blobs_noise, `${data.name + "noise".toString()}.wav`);
 
-/*     const res = await fetch("http://127.0.0.1:5000/analisis", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    }); */
-    const res = await fetch("https://www.upiita.ml/analisis", {
+    const res = await fetch("http://127.0.0.1:5000/analisis", {
       mode: "cors",
       method: "POST",
       body: form,
     });
+/*     const res = await fetch("https://www.upiita.ml/analisis", {
+      mode: "cors",
+      method: "POST",
+      body: form,
+    }); */
     const register = await res.json();
     blobs = [];
     document.getElementById("Audios").reset();

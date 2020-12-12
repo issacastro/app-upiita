@@ -31,7 +31,7 @@ export default function Navbar() {
               <Link href="/">
                 <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
                   <i className="fab fa-medapps text-lg leading-lg text-white opacity-75"></i>
-                  <span className="ml-2">App</span>
+                  <span className="ml-2">Proyecto</span>
                 </a>
               </Link>
             </li>
