@@ -135,8 +135,8 @@ export default function Resultado({ data }) {
 
 export async function getServerSideProps({ params }) {
   // Fetch data from external API
-  const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`);
-  /*   const res = await fetch(`https://www.upiita.ml/analisis/${params.id}`); */
+/*   const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`); */
+  const res = await fetch(`https://www.upiita.ml/analisis/${params.id}`);
   const data = await res.json();
   // Pass data to the page via props
   return { props: { data } };
