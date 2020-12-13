@@ -91,7 +91,7 @@ export default function Form() {
       body: form,
     }); */
     const res = await fetch("https://www.upiita.ml/analisis", {
-      mode: "cors",
+      mode: "no-cors",
       method: "POST",
       body: form,
     });
