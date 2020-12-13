@@ -400,7 +400,7 @@ export default function Form() {
                         height={"100%"}
                         width={"100%"}
                       />
-                      <p className=" py-1 px-2 rounded text-blue-600 bg-blue-200">
+                      <p>
                         Subiendo
                       </p>
                     </span>
