@@ -136,12 +136,12 @@ export async function getServerSideProps(ctx) {
     ctx.res.writeHead(302, { Location: '/auth/login' }).end()
   }
   // Fetch data from external API
-  const res = await fetch(`http://127.0.0.1:5000//history/${cook.email}`);
-  /*   const res = await fetch(`https://www.upiita.ml//history/${cook.email}`); */
+/*   const res = await fetch(`http://127.0.0.1:5000//history/${cook.email}`); */
+    const res = await fetch(`https://www.upiita.ml//history/${cook.email}`);
   const data = await res.json();
     // Fetch data from external API
-  const res2 = await fetch(`http://127.0.0.1:5000//audios/${cook.email}`);
-    /*   const res = await fetch(`https://www.upiita.ml//audios/${cook.email}`); */
+/*   const res2 = await fetch(`http://127.0.0.1:5000//audios/${cook.email}`); */
+  const res2 = await fetch(`https://www.upiita.ml//audios/${cook.email}`);
   const audios = await res2.json();
   return { props: { data, cook,audios } };
 

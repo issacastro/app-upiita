@@ -26,16 +26,16 @@ export default function Login() {
     form.append("email", data.email);
     form.append("password", data.password);
 
-    const res = await fetch("http://127.0.0.1:5000/login", {
+/*     const res = await fetch("http://127.0.0.1:5000/login", {
       mode: "cors",
       method: "POST",
       body: form,
-    });
-    /*     const res = await fetch("https://www.upiita.ml/login", {
+    }); */
+    const res = await fetch("https://www.upiita.ml/login", {
         mode: "cors",
         method: "POST",
         body: form,
-      }); */
+      }); 
     const register = await res.json();
     console.log(register);
     if (register.email == data.email) {

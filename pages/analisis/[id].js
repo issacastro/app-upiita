@@ -135,8 +135,8 @@ export default function Resultado({ data,data2 }) {
 
 export async function getServerSideProps(ctx) {
   // Fetch data from external API
-  const res = await fetch(`http://127.0.0.1:5000/analisis/${ctx.params.id}`);
-/*   const res = await fetch(`https://www.upiita.ml/analisis/${ctx.params.id}`); */
+  /* const res = await fetch(`http://127.0.0.1:5000/analisis/${ctx.params.id}`); */
+  const res = await fetch(`https://www.upiita.ml/analisis/${ctx.params.id}`);
   const data = await res.json();
   const cookies = new Cookies(ctx.req ? ctx.req.headers.cookie : null)
   var data2 = await cookies.get("mySession")

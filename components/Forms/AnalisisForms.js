@@ -87,16 +87,17 @@ export default function Form(props) {
     if (data.type == "Grabar")
       form.append("file", blobs_noise, `${data.name + "noise".toString()}.wav`);
 
-    const res = await fetch("http://127.0.0.1:5000/analisis", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    });
-/*     const res = await fetch("https://www.upiita.ml/analisis", {
+   /*  const res = await fetch("http://127.0.0.1:5000/analisis", {
       mode: "cors",
       method: "POST",
       body: form,
     }); */
+
+    const res = await fetch("https://www.upiita.ml/analisis", {
+          mode: "cors",
+          method: "POST",
+          body: form,
+        }); 
     const register = await res.json();
     blobs = [];
     document.getElementById("Audios").reset();
@@ -167,7 +168,7 @@ export default function Form(props) {
         className="w-full max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
         onSubmit={async (e) => {
           e.preventDefault();
-          if (count == audios || (count==1 && data.type=="Adjuntar")) {
+          if (count == audios || (count == 1 && data.type == "Adjuntar")) {
             if (enviar == 0) await sendAudios();
             setFinal(true);
           } else {
@@ -307,20 +308,20 @@ export default function Form(props) {
                 {seconds == 0 ? (
                   <div></div>
                 ) : (
-                  <div>
-                    <span className="text-xs font-semibold inline-block  uppercase  last:mr-1 mr-2 mb-2">
-                      <ReactLoading
-                        type={"bars"}
-                        color={"#E53E3E"}
-                        height={"100%"}
-                        width={"100%"}
-                      />
-                      <p className=" py-1 px-2 rounded text-red-600 bg-red-200">
-                        00:0{seconds}
-                      </p>
-                    </span>
-                  </div>
-                )}
+                    <div>
+                      <span className="text-xs font-semibold inline-block  uppercase  last:mr-1 mr-2 mb-2">
+                        <ReactLoading
+                          type={"bars"}
+                          color={"#E53E3E"}
+                          height={"100%"}
+                          width={"100%"}
+                        />
+                        <p className=" py-1 px-2 rounded text-red-600 bg-red-200">
+                          00:0{seconds}
+                        </p>
+                      </span>
+                    </div>
+                  )}
 
                 {seconds == 0 && count != 0 ? (
                   <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
@@ -330,8 +331,8 @@ export default function Form(props) {
                     acento
                   </small>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 {count == 0 ? (
                   <div>
                     <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
@@ -343,12 +344,12 @@ export default function Form(props) {
                     </span>
                   </div>
                 ) : (
-                  <div>
-                    <span className="text-sm font-semibold inline-block py-1 px-2  rounded text-red  uppercase last:mr-0  mb-3 text-red-500 mr-2">
-                      {prhases[number]}
-                    </span>
-                  </div>
-                )}
+                    <div>
+                      <span className="text-sm font-semibold inline-block py-1 px-2  rounded text-red  uppercase last:mr-0  mb-3 text-red-500 mr-2">
+                        {prhases[number]}
+                      </span>
+                    </div>
+                  )}
                 {flag ? (
                   <div className="flex flex-wrap mx-3 mb-3">
                     <div className="w-full px-3">
@@ -356,8 +357,8 @@ export default function Form(props) {
                     </div>
                   </div>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
 
                 {final ? (
                   <div>
@@ -368,12 +369,12 @@ export default function Form(props) {
                     😝
                   </div>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
               </div>
             ) : (
-              <div></div>
-            )}
+                <div></div>
+              )}
 
             {data.type == "Adjuntar" ? (
               <div id="enviar">
@@ -394,20 +395,20 @@ export default function Form(props) {
                 {seconds == 0 ? (
                   <div></div>
                 ) : (
-                  <div>
-                    <span className="text-xs font-semibold inline-block  uppercase  last:mr-1 mr-2 mb-2">
-                      <ReactLoading
-                        type={"cylon"}
-                        color={"#3182CE"}
-                        height={"100%"}
-                        width={"100%"}
-                      />
-                      <p>
-                        Subiendo
+                    <div>
+                      <span className="text-xs font-semibold inline-block  uppercase  last:mr-1 mr-2 mb-2">
+                        <ReactLoading
+                          type={"cylon"}
+                          color={"#3182CE"}
+                          height={"100%"}
+                          width={"100%"}
+                        />
+                        <p>
+                          Subiendo
                       </p>
-                    </span>
-                  </div>
-                )}
+                      </span>
+                    </div>
+                  )}
 
                 {seconds == 0 ? (
                   <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
@@ -415,8 +416,8 @@ export default function Form(props) {
                     voz con una frecuencia de muestreo de al menos 8 KHz.
                   </small>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
                 {flag ? (
                   <div className="flex flex-wrap mx-3 mb-3">
                     <div className="w-full px-3">
@@ -424,8 +425,8 @@ export default function Form(props) {
                     </div>
                   </div>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
 
                 {final ? (
                   <div>
@@ -436,12 +437,12 @@ export default function Form(props) {
                     😝
                   </div>
                 ) : (
-                  <div></div>
-                )}
+                    <div></div>
+                  )}
               </div>
             ) : (
-              <div></div>
-            )}
+                <div></div>
+              )}
 
             {enviar == 0 ? (
               <div className="text-center mt-2 mb-3">
@@ -461,8 +462,8 @@ export default function Form(props) {
                 </button>
               </div>
             ) : (
-              <div></div>
-            )}
+                <div></div>
+              )}
           </div>
         </div>
       </form>
