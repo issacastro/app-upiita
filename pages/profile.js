@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "components/Navbars/AuthNavbar";
 import CardStats from "components/Cards/CardStats";
 import Link from "next/link";
 import Cookies from 'universal-cookie';
 import { useRouter } from "next/router";
+import useSound from "use-sound";
 
 
 
-export default function Profile({ data, cook,audios }) {
+export default function Profile({ data, cook, audios }) {
   const cookies = new Cookies();
   const router = useRouter();
+  //Funciones para efectos
+  const soundUrlpop = "sounds/pop.mp3";
+  const [play, { stop }] = useSound(soundUrlpop, { volume: 0.1 });
+  const [isHovering, setIsHovering] = useState(false);
+
   return (
     <div>
       <Navbar transparent />
@@ -65,10 +71,34 @@ export default function Profile({ data, cook,audios }) {
                   <div className="py-6 px-3 mt-32 sm:mt-0">
                     <Link href="/analisis">
                       <button
-                        className="bg-gray-800 active:bg-gray-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        className="bg-gray-800 active:bg-gray-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 hover:shadow-lg"
                         type="button"
+                        onMouseEnter={() => {
+                          setIsHovering(true);
+                          play();
+                        }}
+                        onMouseLeave={() => {
+                          setIsHovering(false);
+                          stop();
+                        }}
                       >
                         Analizar
+                      </button>
+                    </Link>
+                    <Link href="/audios">
+                      <button
+                        className="bg-gray-800 active:bg-gray-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 hover:shadow-lg"
+                        type="button"
+                        onMouseEnter={() => {
+                          setIsHovering(true);
+                          play();
+                        }}
+                        onMouseLeave={() => {
+                          setIsHovering(false);
+                          stop();
+                        }}
+                      >
+                        Audios
                       </button>
                     </Link>
                   </div>
@@ -83,8 +113,8 @@ export default function Profile({ data, cook,audios }) {
                     </div>
                     <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                      {audios.length}
-                        </span>
+                        {audios.length}
+                      </span>
                       <span className="text-sm text-gray-500">Auidos</span>
                     </div>
                     <div className="lg:mr-4 p-3 text-center"
@@ -117,11 +147,20 @@ export default function Profile({ data, cook,audios }) {
           <div className="flex flex-wrap">
             {data.map((element, index) =>
               <Link href={`/analisis/${element._id.$oid}`} key={`${element._id.$oid}1`}>
-              <div key={element._id.$oid} className="w-full lg:w-6/12 xl:w-4/12 px-4 mb-6">
-                <CardStats key={index} data={element}className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg" />
-              </div>
+                <div key={element._id.$oid} className="w-full lg:w-6/12 xl:w-4/12 px-4 mb-6 "
+                  onMouseEnter={() => {
+                    setIsHovering(true);
+                    play();
+                  }}
+                  onMouseLeave={() => {
+                    setIsHovering(false);
+                    stop();
+                  }}
+                >
+                  <CardStats key={index} data={element} className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0" />
+                </div>
               </Link>
-              )}
+            )}
           </div>
         </div>
 
@@ -136,14 +175,14 @@ export async function getServerSideProps(ctx) {
     ctx.res.writeHead(302, { Location: '/auth/login' }).end()
   }
   // Fetch data from external API
-/*   const res = await fetch(`http://127.0.0.1:5000//history/${cook.email}`); */
-    const res = await fetch(`https://www.upiita.ml//history/${cook.email}`);
+  /*   const res = await fetch(`http://127.0.0.1:5000//history/${cook.email}`); */
+  const res = await fetch(`https://www.upiita.ml//history/${cook.email}`);
   const data = await res.json();
-    // Fetch data from external API
-/*   const res2 = await fetch(`http://127.0.0.1:5000//audios/${cook.email}`); */
+  // Fetch data from external API
+  /*   const res2 = await fetch(`http://127.0.0.1:5000//audios/${cook.email}`); */
   const res2 = await fetch(`https://www.upiita.ml//audios/${cook.email}`);
   const audios = await res2.json();
-  return { props: { data, cook,audios } };
+  return { props: { data, cook, audios } };
 
 }
 

@@ -76,6 +76,7 @@ export default function Form() {
     form.append("gender", data.gender);
     form.append("country", data.country);
     form.append("old", data.old);
+    form.append("user", props.data.email);
     blobs.forEach((blob, i) => {
       form.append("file", blob, `${data.name + (i + 1).toString()}.wav`);
     });
