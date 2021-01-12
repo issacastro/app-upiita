@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from "../layouts/layout";
-
-export default function Index() {
+import Cookies from 'universal-cookie';
+export default function Index({data}) {
   return (
-    <Layout>
+    <Layout data={data}>
       <div className="container mx-auto px-3 py-3">
         <h1 className="text-5xl font-normal leading-norma text-gray-800">
           IPN - UPIITA
@@ -96,3 +96,15 @@ export default function Index() {
     </Layout>
   );
 }
+
+export async function getServerSideProps(ctx) {
+  const cookies = new Cookies(ctx.req ? ctx.req.headers.cookie : null)
+  var data = await cookies.get("mySession")
+  if(data==null){
+    data = new Object();
+    data.email="admin@upiita.com"
+    data.name="no-login"
+  }
+  return { props: { data  } };
+  
+  }

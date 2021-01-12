@@ -6,10 +6,11 @@ import ReactLoading from "react-loading";
 import { useRouter } from "next/router";
 import { useStopwatch } from "react-timer-hook";
 
+
 var blobs;
 var blobs_noise;
 const number = Math.floor(Math.random() * (10 - 1)) + 1;
-export default function Form() {
+export default function Form(props) {
   const router = useRouter();
   const audios = 2;
   const inputFile = useRef(null);
@@ -81,20 +82,21 @@ export default function Form() {
     form.append("name", data.name);
     form.append("gender", data.gender);
     form.append("type", data.type);
+    form.append("user", props.data.email);
     form.append("file", blobs, `${data.name + "file".toString()}.wav`);
     if (data.type == "Grabar")
       form.append("file", blobs_noise, `${data.name + "noise".toString()}.wav`);
 
-/*     const res = await fetch("http://127.0.0.1:5000/analisis", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    }); */
-    const res = await fetch("https://www.upiita.ml/analisis", {
+    const res = await fetch("http://127.0.0.1:5000/analisis", {
       mode: "cors",
       method: "POST",
       body: form,
     });
+/*     const res = await fetch("https://www.upiita.ml/analisis", {
+      mode: "cors",
+      method: "POST",
+      body: form,
+    }); */
     const register = await res.json();
     blobs = [];
     document.getElementById("Audios").reset();

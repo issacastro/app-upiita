@@ -1,27 +1,76 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function CardStats({
-  statSubtitle,
-  statTitle,
-  statArrow,
-  statPercent,
-  statPercentColor,
-  statDescripiron,
-  statIconName,
-  statIconColor,
-}) {
+export default function CardStats(props) {
+  var reg = props.data;
+  var statArrow;
+  var statPercentColor;
+  var statIconColor;
+  var statIconName= "fas fa-chart-pie"
+
+  if(reg.SNR1>reg.SNR2){
+    statPercentColor="text-red-500";
+    statArrow="down";
+  }else{
+    statPercentColor="text-green-500";
+    statArrow="up"
+  }
+
+  var labels = [];
+  var predictions = []; //Con cancelacion de ruido
+  var predictionsN = []; //Con Ruido
+  var Country = "";
+  var Porcent = 0;
+  var analisis = reg.Data;
+
+  analisis.forEach(result => {
+    labels.push(result.ANN)
+    predictions.push({"ANN":result.ANN,"Feature":result.Feature,"Country":result.countryN,"Porcent":result.N})
+    predictionsN.push({"ANN":result.ANN,"Feature":result.Feature,"Country":result.countryWNR,"Porcent":result.WNR})
+    
+  });
+  //Ordenamos los datos por tipo de red neuronal
+  labels.sort((a,b)=> a.length-b.length)
+  predictions.sort((a,b)=>a.ANN.length-b.ANN.length)
+  predictionsN.sort((a,b)=>a.ANN.length-b.ANN.length)
+  
+// Generamos los vectores para presentar la informacion 
+  var Vectors = DataSet(predictions);
+  var DataM = Vectors[0]
+  var DataC = Vectors[1]
+
+  var Vectors = DataSet(predictionsN);
+  var M = Math.max(...DataM);
+  var C = Math.max(...DataC)
+
+  if(M>C){
+    Country = "Mexico";
+    Porcent = M;
+  }else{
+    Country = "Colombia";
+    Porcent = C;
+  }
+if(Porcent>80){
+  statIconColor="bg-green-500";
+}else if(Porcent<80 && Porcent>70)
+{
+  statIconColor="bg-orange-500";
+}else{
+  statIconColor="bg-red-500";
+}
+
+
   return (
-    <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+    <div>
+      <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg px-4 py-4 mb-4">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
               <h5 className="text-gray-500 uppercase font-bold text-xs">
-                {statSubtitle}
+                {reg.Test} 
               </h5>
               <span className="font-semibold text-xl text-gray-800">
-                {statTitle}
+                {Country} <small>{Porcent.toFixed(2)+"%"}</small>
               </span>
             </div>
             <div className="relative w-auto pl-4 flex-initial">
@@ -46,38 +95,30 @@ export default function CardStats({
                     : ""
                 }
               ></i>{" "}
-              {statPercent}%
+              {reg.SNR2.toFixed(4)} dB
             </span>
-            <span className="whitespace-no-wrap">{statDescripiron}</span>
+            <span className="whitespace-no-wrap">{"SNR"}</span>
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-CardStats.defaultProps = {
-  statSubtitle: "Traffic",
-  statTitle: "350,897",
-  statArrow: "up",
-  statPercent: "3.48",
-  statPercentColor: "text-green-500",
-  statDescripiron: "Since last month",
-  statIconName: "far fa-chart-bar",
-  statIconColor: "bg-red-500",
-};
+function DataSet(predict) {
+  const accuary = [0.75171,0.51773,0.51986,0.93971,0.93972]
+  var DataM=[];
+  var DataC=[];
+  for (let index = 0; index < predict.length; index++) {
 
-CardStats.propTypes = {
-  statSubtitle: PropTypes.string,
-  statTitle: PropTypes.string,
-  statArrow: PropTypes.oneOf(["up", "down"]),
-  statPercent: PropTypes.string,
-  // can be any of the text color utilities
-  // from tailwindcss
-  statPercentColor: PropTypes.string,
-  statDescripiron: PropTypes.string,
-  statIconName: PropTypes.string,
-  // can be any of the background color utilities
-  // from tailwindcss
-  statIconColor: PropTypes.string,
-};
+    if(predict[index].Country == "Mexico"){
+      DataM.push(predict[index].Porcent*accuary[index])
+      DataC.push(100-predict[index].Porcent*accuary[index])}
+
+    if(predict[index].Country == "Colombia"){
+      DataC.push(predict[index].Porcent*accuary[index])
+      DataM.push(100-predict[index].Porcent*accuary[index])}
+  }
+return [DataM,DataC]
+  
+}

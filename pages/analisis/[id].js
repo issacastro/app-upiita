@@ -2,9 +2,9 @@ import React from "react";
 import Layout from "../../layouts/layout";
 import CardBarChart from "components/Cards/CardBarChart";
 import CardBarsSNR from "components/Cards/CardBarSNR";
+import Cookies from 'universal-cookie';
 
-export default function Resultado({ data }) {
-  
+export default function Resultado({ data,data2 }) {
   var labels = [];
   var predictions = []; //Con cancelacion de ruido
   var predictionsN = []; //Con Ruido
@@ -44,7 +44,7 @@ export default function Resultado({ data }) {
   }
   
   return (
-    <Layout>
+    <Layout data={data2}>
       <div>
         <div className="w-full  flex-3 text-center">
           <div className="flex flex-wrap mb-5">
@@ -133,13 +133,20 @@ export default function Resultado({ data }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps(ctx) {
   // Fetch data from external API
-/*   const res = await fetch(`http://127.0.0.1:5000/analisis/${params.id}`); */
-  const res = await fetch(`https://www.upiita.ml/analisis/${params.id}`);
+  const res = await fetch(`http://127.0.0.1:5000/analisis/${ctx.params.id}`);
+/*   const res = await fetch(`https://www.upiita.ml/analisis/${ctx.params.id}`); */
   const data = await res.json();
+  const cookies = new Cookies(ctx.req ? ctx.req.headers.cookie : null)
+  var data2 = await cookies.get("mySession")
+  if(data2==null){
+    data2 = new Object();
+    data2.email="admin@upiita.com"
+    data2.name="no-login"
+  }
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { data,data2 } };
 }
 
 function DataSet(predict) {
@@ -159,3 +166,4 @@ function DataSet(predict) {
 return [DataM,DataC]
   
 }
+

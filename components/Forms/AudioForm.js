@@ -79,16 +79,16 @@ export default function Form() {
     blobs.forEach((blob, i) => {
       form.append("file", blob, `${data.name + (i + 1).toString()}.wav`);
     });
-/*     const res = await fetch("http://127.0.0.1:5000/upload", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    }); */
-    const res = await fetch("https://www.upiita.ml/upload", {
+    const res = await fetch("http://127.0.0.1:5000/upload", {
       mode: "cors",
       method: "POST",
       body: form,
     });
+/*     const res = await fetch("https://www.upiita.ml/upload", {
+      mode: "cors",
+      method: "POST",
+      body: form,
+    }); */
     const register = await res.json();
     console.log(register._id.$oid);
     blobs = [];

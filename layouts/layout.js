@@ -1,8 +1,8 @@
 import NavBar from "../components/Navbars/Navbar"
-export default function Layout({children}){
+export default function Layout({children,data}){
  return(
 <>
-<NavBar/>
+<NavBar login={data}/>
 {children}
 </>
 
