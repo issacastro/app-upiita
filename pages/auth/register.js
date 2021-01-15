@@ -43,7 +43,7 @@ export default function Register() {
       let minutes = 120
       d.setTime(d.getTime() + (minutes*60*1000));
       cookies.remove('mySession')
-      cookies.set('mySession', register, { path: '/profile' , expires: d });
+      cookies.set('mySession', register, { path: '/' , expires: d });
       document.getElementById("register").reset();
       router.push(`/profile`);
     }
