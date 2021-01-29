@@ -115,7 +115,7 @@ export default function Profile({ data, cook, audios }) {
                       <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
                         {audios.length}
                       </span>
-                      <span className="text-sm text-gray-500">Audios</span>
+                      <span className="text-sm text-gray-500">Bloque de audios</span>
                     </div>
                     <div className="lg:mr-4 p-3 text-center"
                       onClick={async () => {
