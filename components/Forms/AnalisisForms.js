@@ -37,6 +37,15 @@ export default function Form(props) {
       😎
     </div>
   );
+  const element_err = (
+    <div>
+      <span className="text-xs font-bold inline-block py-1 px-2  rounded-full text-Red-600 bg-red-200  last:mr-0 mr-1">
+        ¡ Error de sincronización !
+      </span>
+      <br />
+      😔
+    </div>
+  );
   const [wav, setWav] = useState();
   const [flag, setFlag] = useState(false);
   const [final, setFinal] = useState(false);
@@ -86,23 +95,26 @@ export default function Form(props) {
     form.append("file", blobs, `${data.name + "file".toString()}.wav`);
     if (data.type == "Grabar")
       form.append("file", blobs_noise, `${data.name + "noise".toString()}.wav`);
+    try {
+      /*  const res = await fetch("http://127.0.0.1:5000/analisis", {
+         mode: "cors",
+         method: "POST",
+         body: form,
+       }); */
 
-   /*  const res = await fetch("http://127.0.0.1:5000/analisis", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    }); */
-
-    const res = await fetch("https://www.upiita.ml/analisis", {
-          mode: "cors",
-          method: "POST",
-          body: form,
-        }); 
-    const register = await res.json();
-    blobs = [];
-    document.getElementById("Audios").reset();
-    setEnviar(0);
-    router.push(`/analisis/${register._id.$oid}`);
+      const res = await fetch("https://www.upiita.ml/analisis", {
+        mode: "cors",
+        method: "POST",
+        body: form,
+      });
+      const register = await res.json();
+      blobs = [];
+      document.getElementById("Audios").reset();
+      setEnviar(0);
+      router.push(`/analisis/${register._id.$oid}`);
+    } catch {
+      ReactDOM.render(element_err, document.getElementById("enviar"));
+    }
   }
 
   // DATOS DEL FORMULARIO

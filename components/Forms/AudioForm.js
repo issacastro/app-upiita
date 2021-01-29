@@ -32,6 +32,15 @@ export default function Form() {
       😎
     </div>
   );
+  const element_err = (
+    <div>
+      <span className="text-xs font-bold inline-block py-1 px-2  rounded-full text-Red-600 bg-red-200  last:mr-0 mr-1">
+        ¡ Error de sincronización !
+      </span>
+      <br />
+      😔
+    </div>
+  );
   const [wav, setWav] = useState();
   const [flag, setFlag] = useState(false);
   const [final, setFinal] = useState(false);
@@ -80,22 +89,26 @@ export default function Form() {
     blobs.forEach((blob, i) => {
       form.append("file", blob, `${data.name + (i + 1).toString()}.wav`);
     });
-/*     const res = await fetch("http://127.0.0.1:5000/upload", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    }); */
-const res = await fetch("https://www.upiita.ml/upload", {
-      mode: "cors",
-      method: "POST",
-      body: form,
-    });
-    const register = await res.json();
-    console.log(register._id.$oid);
-    blobs = [];
-    document.getElementById("Audios").reset()
-    setEnviar(0);
-    router.push("/")
+    try {
+      /*     const res = await fetch("http://127.0.0.1:5000/upload", {
+            mode: "cors",
+            method: "POST",
+            body: form,
+          }); */
+      const res = await fetch("https://www.upiita.ml/upload", {
+        mode: "cors",
+        method: "POST",
+        body: form,
+      });
+      const register = await res.json();
+      console.log(register._id.$oid);
+      blobs = [];
+      document.getElementById("Audios").reset()
+      setEnviar(0);
+      router.push("/")
+    } catch {
+      ReactDOM.render(element_err, document.getElementById("enviar"));
+    }
   }
 
   // DATOS DEL FORMULARIO
@@ -245,7 +258,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   </option>
                   <option value="Argentina">Argentina</option>
                   <option value="Colombia">Colombia</option>
-                  <option value="Mexico">Mexico</option>
+                  <option value="México">México</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -300,20 +313,20 @@ const res = await fetch("https://www.upiita.ml/upload", {
               {seconds == 0 ? (
                 <div></div>
               ) : (
-                <div>
-                  <span className="text-xs font-semibold inline-block  uppercase  last:mr-1 mr-2 mb-2">
-                    <ReactLoading
-                      type={"bars"}
-                      color={"#E53E3E"}
-                      height={"100%"}
-                      width={"100%"}
-                    />
-                    <p className=" py-1 px-2 rounded text-red-600 bg-red-200">
-                      00:0{seconds}
-                    </p>
-                  </span>
-                </div>
-              )}
+                  <div>
+                    <span className="text-xs font-semibold inline-block  uppercase  last:mr-1 mr-2 mb-2">
+                      <ReactLoading
+                        type={"bars"}
+                        color={"#E53E3E"}
+                        height={"100%"}
+                        width={"100%"}
+                      />
+                      <p className=" py-1 px-2 rounded text-red-600 bg-red-200">
+                        00:0{seconds}
+                      </p>
+                    </span>
+                  </div>
+                )}
 
               {seconds == 0 ? (
                 <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
@@ -322,8 +335,8 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   alcanzas a decir la completa, lo importante es tener tu acento.
                 </small>
               ) : (
-                <div></div>
-              )}
+                  <div></div>
+                )}
               <span className="text-sm font-semibold inline-block py-1 px-2  rounded text-red  uppercase last:mr-0  mb-3 text-red-500 mr-2">
                 {prhases[count]}
               </span>
@@ -335,8 +348,8 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   </div>
                 </div>
               ) : (
-                <div></div>
-              )}
+                  <div></div>
+                )}
 
               {final ? (
                 <div>
@@ -347,8 +360,8 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   😝
                 </div>
               ) : (
-                <div></div>
-              )}
+                  <div></div>
+                )}
             </div>
             {enviar == 0 ? (
               <div className="text-center mt-2 mb-3">
@@ -368,8 +381,8 @@ const res = await fetch("https://www.upiita.ml/upload", {
                 </button>
               </div>
             ) : (
-              <div></div>
-            )}
+                <div></div>
+              )}
           </div>
         </div>
       </form>
