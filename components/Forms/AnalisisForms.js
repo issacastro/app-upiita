@@ -212,7 +212,7 @@ export default function Form(props) {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left"
                 htmlFor="grid-state"
               >
-                Genero
+                Género
               </label>
               <div className="relative">
                 <select
@@ -223,7 +223,7 @@ export default function Form(props) {
                   required
                 >
                   <option disabled selected>
-                    Selecciona genero
+                    Selecciona género
                   </option>
                   <option value="Hombre">Hombre</option>
                   <option value="Mujer">Mujer</option>
@@ -247,7 +247,7 @@ export default function Form(props) {
                   required
                 >
                   <option disabled selected>
-                    Grabacion / Archivo
+                    Grabación / Archivo
                   </option>
                   <option value="Grabar">Grabacion</option>
                   <option value="Adjuntar">Archivo</option>
@@ -325,7 +325,7 @@ export default function Form(props) {
 
                 {seconds == 0 && count != 0 ? (
                   <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
-                    Cuando des click en el boton se empezara a grabar el audio,
+                    Cuando des clic en el boton se empezara a grabar el audio,
                     porfavor di la frase en color rojo, no importa si no
                     alcanzas a decir la completa, lo importante es tener tu
                     acento

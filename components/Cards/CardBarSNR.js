@@ -6,7 +6,7 @@ export default function CardBarChart(props) {
     let config = {
       type: "bar",
       data: {
-        labels: ["Antes", "Despues"],
+        labels: ["Antes", "Después"],
         datasets: [
           {
             label: props.Test,
@@ -88,7 +88,7 @@ export default function CardBarChart(props) {
         <div className="flex flex-wrap items-center">
           <div className="relative w-full max-w-full flex-grow flex-1">
             <h3 className="text-gray-800 text-xl font-semibold text-center">
-              Relacion señal a rudio
+              Relación señal a rudio
             </h3>
           </div>
         </div>

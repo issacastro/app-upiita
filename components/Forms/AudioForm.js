@@ -317,7 +317,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
 
               {seconds == 0 ? (
                 <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
-                  Cuando des click en el microfono se empezara a grabar el
+                  Cuando des clic en el microfono se empezara a grabar el
                   audio, porfavor di la frase en color rojo, no importa si no
                   alcanzas a decir la completa, lo importante es tener tu acento
                 </small>

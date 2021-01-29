@@ -9,7 +9,7 @@ export default function CardBarChart(props) {
         labels: props.labels,
         datasets: [
           {
-            label: "Mexico",
+            label: "México",
             backgroundColor: "#00C853",
             borderColor: "#00C853",
             data: props.DataM,

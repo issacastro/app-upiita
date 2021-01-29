@@ -126,7 +126,7 @@ export default function Profile({ data, cook, audios }) {
                       <small className="text-xl font-bold block uppercase tracking-wide text-gray-700">
                         <i className="fas fa-sign-out-alt"></i>
                       </small>
-                      <span className="text-sm text-gray-500">Cerrar Sesion</span>
+                      <span className="text-sm text-gray-500">Cerrar Sesión</span>
                     </div>
                   </div>
                 </div>

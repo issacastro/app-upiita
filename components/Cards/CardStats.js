@@ -111,7 +111,7 @@ function DataSet(predict) {
   var DataC=[];
   for (let index = 0; index < predict.length; index++) {
 
-    if(predict[index].Country == "Mexico"){
+    if(predict[index].Country == "México"){
       DataM.push(predict[index].Porcent*accuary[index])
       DataC.push(100-predict[index].Porcent*accuary[index])}
 

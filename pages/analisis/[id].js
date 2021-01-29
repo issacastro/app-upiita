@@ -123,8 +123,8 @@ export default function Resultado({ data,data2 }) {
               </>
             </div>
             <div className="w-full px-4 flex-1">
-              <CardBarChart title="Sin reduccion de rudio" labels = {labels} DataM = {DataM} DataC = {DataC} />
-              <CardBarChart title="Con reduccion de rudio" labels = {labels} DataM = {DataMN} DataC = {DataCN} />
+              <CardBarChart title="Sin reducción de rudio" labels = {labels} DataM = {DataM} DataC = {DataC} />
+              <CardBarChart title="Con reducción de rudio" labels = {labels} DataM = {DataMN} DataC = {DataCN} />
             </div>
           </div>
         </div>
