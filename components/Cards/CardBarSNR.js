@@ -88,7 +88,7 @@ export default function CardBarChart(props) {
         <div className="flex flex-wrap items-center">
           <div className="relative w-full max-w-full flex-grow flex-1">
             <h3 className="text-gray-800 text-xl font-semibold text-center">
-              Relación señal a rudio
+              Relación señal a ruido
             </h3>
           </div>
         </div>
