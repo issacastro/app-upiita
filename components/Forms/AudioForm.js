@@ -195,7 +195,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline "
                   id="grid-password"
                   type="text"
-                  placeholder="¿ Como te llamas ?"
+                  placeholder="¿ Cómo te llamas ?"
                   required
                 />
               </div>
@@ -206,7 +206,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left"
                 htmlFor="grid-state"
               >
-                Genero
+                Género
               </label>
               <div className="relative">
                 <select
@@ -217,7 +217,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   required
                 >
                   <option disabled selected>
-                    Selecciona genero
+                    Selecciona género
                   </option>
                   <option value="Hombre">Hombre</option>
                   <option value="Mujer">Mujer</option>
@@ -230,7 +230,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-left"
                 htmlFor="grid-state"
               >
-                Pais
+                País
               </label>
               <div className="relative">
                 <select
@@ -241,7 +241,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   required
                 >
                   <option disabled selected>
-                    Selecciona pais
+                    Selecciona país
                   </option>
                   <option value="Argentina">Argentina</option>
                   <option value="Colombia">Colombia</option>
@@ -266,7 +266,7 @@ const res = await fetch("https://www.upiita.ml/upload", {
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:shadow-outline "
                   id="grid-password"
                   type="number"
-                  placeholder="¿ Cuantos años tienes ?"
+                  placeholder="¿ Cuántos años tienes ?"
                   required
                 />
               </div>
@@ -317,9 +317,9 @@ const res = await fetch("https://www.upiita.ml/upload", {
 
               {seconds == 0 ? (
                 <small className="inline-block text-xs text-muted justify-center text-gray-500 mb-3">
-                  Cuando des clic en el microfono se empezara a grabar el
-                  audio, porfavor di la frase en color rojo, no importa si no
-                  alcanzas a decir la completa, lo importante es tener tu acento
+                  Cuando des clic en el microfono se empezará a grabar el
+                  audio, por favor di la frase en color rojo, no importa si no
+                  alcanzas a decir la completa, lo importante es tener tu acento.
                 </small>
               ) : (
                 <div></div>

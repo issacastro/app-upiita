@@ -44,7 +44,7 @@ export default function CardStats(props) {
   var C = Math.max(...DataC)
 
   if(M>C){
-    Country = "Mexico";
+    Country = "México";
     Porcent = M;
   }else{
     Country = "Colombia";
@@ -111,7 +111,7 @@ function DataSet(predict) {
   var DataC=[];
   for (let index = 0; index < predict.length; index++) {
 
-    if(predict[index].Country == "México"){
+    if(predict[index].Country == "Mexico"){
       DataM.push(predict[index].Porcent*accuary[index])
       DataC.push(100-predict[index].Porcent*accuary[index])}
 

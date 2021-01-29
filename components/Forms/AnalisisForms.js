@@ -249,7 +249,7 @@ export default function Form(props) {
                   <option disabled selected>
                     Grabación / Archivo
                   </option>
-                  <option value="Grabar">Grabacion</option>
+                  <option value="Grabar">Grabación</option>
                   <option value="Adjuntar">Archivo</option>
                 </select>
               </div>
